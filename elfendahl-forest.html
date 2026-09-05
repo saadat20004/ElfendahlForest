@@ -1,0 +1,1159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Elfendahl Forest — an off-grid, gnome-filled homestead near Hood Canal</title>
+<meta name="description" content="Twenty acres of moss-covered forest in Belfair, Washington. A bell tent, a converted bus, a tent site, an outdoor kitchen and a composting toilet called Louie the 1st. From $65 a night.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Young+Serif&family=Manrope:wght@300..800&display=swap" rel="stylesheet">
+
+<style>
+/* =========================================================
+   Elfendahl Forest — Belfair, Washington
+   Night in a moss forest strung with lights: deep fir dark,
+   lichen greens, fairy-lantern gold, one toadstool red.
+   ========================================================= */
+
+:root{
+  --night:#0D1C15;
+  --night-2:#132A20;
+  --moss:#1C3A2B;
+  --fern:#396543;
+  --sage:#93B187;
+  --glow:#F2C14E;
+  --glow-2:#D9A32F;
+  --toad:#C24A31;
+  --toad-2:#A33A24;
+  --cream:#F0EFE2;
+  --cream-dim:rgba(240,239,226,.72);
+  --cream-faint:rgba(240,239,226,.42);
+  --edge:rgba(240,239,226,.16);
+  --edge-2:rgba(240,239,226,.3);
+
+  --shell:min(1280px,91vw);
+  --r-lg:28px;
+  --r-md:18px;
+  --r-sm:11px;
+  --ease:cubic-bezier(.22,.61,.36,1);
+  --out:cubic-bezier(.16,1,.3,1);
+  --pop:cubic-bezier(.34,1.56,.64,1);
+
+  --t--1:clamp(.84rem,.81rem + .14vw,.93rem);
+  --t-0:clamp(1rem,.96rem + .2vw,1.1rem);
+  --t-1:clamp(1.18rem,1.05rem + .55vw,1.45rem);
+  --t-2:clamp(1.55rem,1.25rem + 1.35vw,2.4rem);
+  --t-3:clamp(2rem,1.45rem + 2.7vw,3.9rem);
+  --t-4:clamp(2.7rem,1.5rem + 5.4vw,6.6rem);
+}
+
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{
+  margin:0;background:var(--night);color:var(--cream-dim);
+  font-family:"Manrope",system-ui,sans-serif;font-size:var(--t-0);font-weight:400;
+  line-height:1.66;overflow-x:hidden;-webkit-font-smoothing:antialiased;
+}
+img{display:block;max-width:100%}
+a{color:inherit}
+button,input,select,textarea{font:inherit;color:inherit}
+
+h1,h2,.serif{font-family:"Young Serif",Georgia,serif;font-weight:400;line-height:1.05;letter-spacing:-.012em;margin:0;color:var(--cream)}
+h3,h4{font-family:"Manrope",sans-serif;font-weight:800;letter-spacing:-.018em;line-height:1.2;margin:0;color:var(--cream)}
+:focus-visible{outline:3px solid var(--glow);outline-offset:3px;border-radius:4px}
+.shell{width:var(--shell);margin-inline:auto}
+
+/* ---------- fairy motes ---------- */
+.motes{position:fixed;inset:0;z-index:1;pointer-events:none;overflow:hidden}
+.mote{position:absolute;width:4px;height:4px;border-radius:50%;background:var(--glow);opacity:0;filter:blur(.4px);animation:rise linear infinite}
+@keyframes rise{
+  0%{opacity:0;transform:translateY(0) translateX(0) scale(.6)}
+  12%{opacity:.75}
+  70%{opacity:.5}
+  100%{opacity:0;transform:translateY(-70vh) translateX(28px) scale(1.15)}
+}
+
+/* ---------- progress + nav ---------- */
+.prog{position:fixed;top:0;left:0;height:3px;width:100%;z-index:130;background:linear-gradient(90deg,var(--glow),var(--toad));transform:scaleX(0);transform-origin:0 50%}
+
+.nav{position:fixed;top:0;left:0;right:0;z-index:120;padding:18px 0;transition:padding .45s var(--ease),background .45s var(--ease),border-color .45s var(--ease);border-bottom:1px solid transparent}
+.nav.stuck{padding:10px 0;background:rgba(13,28,21,.9);backdrop-filter:blur(14px);border-bottom-color:var(--edge)}
+.nav .shell{display:flex;align-items:center;gap:22px}
+
+.logo{display:flex;align-items:center;gap:11px;text-decoration:none;margin-right:auto}
+.logo svg{width:36px;height:36px;flex:0 0 auto}
+.logo b{font-family:"Young Serif",serif;font-weight:400;font-size:1.08rem;color:var(--cream);line-height:1.15;letter-spacing:-.01em}
+.logo b small{display:block;font-family:"Manrope",sans-serif;font-weight:600;font-size:.7rem;color:var(--sage);letter-spacing:.03em}
+
+.menu{display:flex;gap:28px;align-items:center}
+.menu a{text-decoration:none;font-size:var(--t--1);font-weight:600;color:var(--cream-dim);position:relative;padding:6px 0;transition:color .35s var(--ease)}
+.menu a::after{content:"";position:absolute;left:0;right:0;bottom:0;height:2px;background:var(--glow);transform:scaleX(0);transform-origin:100% 50%;transition:transform .45s var(--out)}
+.menu a:hover{color:var(--cream)}
+.menu a:hover::after{transform:scaleX(1);transform-origin:0 50%}
+
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:9px;
+  padding:14px 27px;border:0;cursor:pointer;text-decoration:none;border-radius:99px;
+  font-family:"Manrope",sans-serif;font-weight:800;font-size:.94rem;
+  background:var(--glow);color:var(--night);position:relative;overflow:hidden;isolation:isolate;
+  transition:transform .45s var(--pop),box-shadow .45s var(--ease);
+  box-shadow:0 0 30px -10px rgba(242,193,78,.6);
+}
+.btn::before{content:"";position:absolute;inset:0;z-index:-1;background:var(--cream);transform:translateY(101%);transition:transform .45s var(--out)}
+.btn:hover{transform:translateY(-3px);box-shadow:0 0 44px -8px rgba(242,193,78,.85)}
+.btn:hover::before{transform:translateY(0)}
+.btn--toad{background:var(--toad);color:var(--cream);box-shadow:0 0 30px -12px rgba(194,74,49,.8)}
+.btn--toad::before{background:var(--toad-2)}
+.btn--line{background:transparent;color:var(--cream);box-shadow:inset 0 0 0 2px var(--edge-2)}
+.btn--line::before{background:var(--cream)}
+.btn--line:hover{color:var(--night);box-shadow:inset 0 0 0 2px var(--cream)}
+.btn--sm{padding:11px 21px;font-size:.86rem}
+.btn--full{width:100%;padding:19px 28px;font-size:1.04rem}
+
+.burger{display:none;width:44px;height:44px;border-radius:50%;border:0;cursor:pointer;background:var(--glow);flex-direction:column;align-items:center;justify-content:center;gap:5px}
+.burger i{width:17px;height:2px;background:var(--night);border-radius:2px;transition:transform .4s var(--ease),opacity .3s}
+.burger.on i:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.burger.on i:nth-child(2){opacity:0}
+.burger.on i:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+
+/* ---------- hero ---------- */
+.hero{position:relative;z-index:2;padding:clamp(120px,17vh,180px) 0 0;text-align:center}
+.hero::before{
+  content:"";position:absolute;left:50%;top:0;transform:translateX(-50%);
+  width:min(900px,95vw);height:520px;pointer-events:none;
+  background:radial-gradient(closest-side,rgba(242,193,78,.13),transparent 72%);
+}
+.crumb{
+  display:inline-flex;align-items:center;gap:10px;border:1px solid var(--edge);
+  border-radius:99px;padding:7px 18px;font-size:var(--t--1);font-weight:600;
+  color:var(--cream-dim);margin-bottom:26px;background:rgba(240,239,226,.04);
+}
+.crumb b{color:var(--glow);font-weight:800}
+.crumb i{width:7px;height:7px;border-radius:50%;background:var(--glow);animation:twink 2.4s var(--ease) infinite}
+@keyframes twink{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.35;transform:scale(.7)}}
+
+.hero h1{font-size:var(--t-4);letter-spacing:-.03em;max-width:16ch;margin-inline:auto}
+.hero h1 .ln{display:block;overflow:hidden;padding-bottom:.05em}
+.hero h1 .ln i{display:block;font-style:normal;transform:translateY(112%)}
+.hero h1 em{font-style:normal;color:var(--glow)}
+.hero > .shell > p{margin:26px auto 32px;font-size:var(--t-1);color:var(--cream-dim);max-width:56ch}
+.hero__acts{display:flex;flex-wrap:wrap;gap:13px;justify-content:center;align-items:center}
+.hero__rate{font-size:var(--t--1);color:var(--cream-faint);font-weight:600}
+.hero__rate b{font-family:"Young Serif",serif;color:var(--cream);font-size:1.3rem}
+
+/* photo ribbon */
+.ribbon{margin-top:clamp(46px,6vw,80px);overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent)}
+.ribbon__row{display:flex;gap:16px;width:max-content;animation:glide 62s linear infinite}
+.ribbon:hover .ribbon__row{animation-play-state:paused}
+@keyframes glide{to{transform:translateX(-50%)}}
+.rib{
+  width:clamp(190px,20vw,290px);aspect-ratio:3/4;flex:0 0 auto;border-radius:var(--r-md);
+  overflow:hidden;background:var(--moss);cursor:zoom-in;border:0;padding:0;position:relative;
+  transition:transform .5s var(--pop);
+}
+.rib img{width:100%;height:100%;object-fit:cover;filter:saturate(.94) brightness(.84);transition:filter .5s var(--ease),transform 1.1s var(--out)}
+.rib:hover{transform:translateY(-8px) rotate(-1.2deg)}
+.rib:hover img{filter:saturate(1.06) brightness(1);transform:scale(1.06)}
+
+/* ---------- sections ---------- */
+.band{position:relative;z-index:2;padding:clamp(66px,8.5vw,124px) 0}
+.band--moss{background:var(--moss)}
+.band--deep{background:var(--night-2)}
+
+.kick{display:inline-flex;align-items:center;gap:9px;font-weight:800;font-size:var(--t--1);color:var(--glow);margin-bottom:13px}
+.kick::before{content:"";width:24px;height:2px;background:var(--toad)}
+.head{margin-bottom:clamp(32px,4.4vw,58px)}
+.head--row{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.72fr);gap:22px 56px;align-items:end}
+.head h2{font-size:var(--t-3)}
+.head p{margin:15px 0 0;color:var(--cream-dim);max-width:56ch}
+
+/* ---------- stays ---------- */
+.tabs{display:inline-flex;gap:4px;border:1px solid var(--edge);border-radius:99px;padding:5px;margin-bottom:28px}
+.tab{
+  border:0;cursor:pointer;background:transparent;border-radius:99px;padding:11px 22px;
+  font-weight:700;font-size:var(--t--1);color:var(--cream-dim);
+  transition:background .4s var(--ease),color .4s var(--ease),transform .4s var(--pop);
+}
+.tab:hover{transform:translateY(-2px);color:var(--cream)}
+.tab.on{background:var(--glow);color:var(--night)}
+
+.stays{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;align-items:stretch}
+.stay{
+  position:relative;border-radius:var(--r-lg);overflow:hidden;padding:12px;border:2px solid transparent;
+  background:var(--night-2);cursor:pointer;text-align:left;display:flex;flex-direction:column;width:100%;
+  transition:transform .55s var(--out),border-color .4s var(--ease),box-shadow .5s var(--ease);
+}
+.stay:nth-child(even){margin-top:34px}
+.stay:hover{transform:translateY(-10px);box-shadow:0 30px 50px -30px rgba(0,0,0,.9)}
+.stay.picked{border-color:var(--glow);box-shadow:0 0 40px -14px rgba(242,193,78,.55)}
+.stay.hide{display:none}
+.stay__img{display:block;aspect-ratio:4/5;overflow:hidden;position:relative;border-radius:20px;background:var(--moss)}
+.stay__img img{width:100%;height:100%;object-fit:cover;filter:brightness(.82);transition:transform 1.2s var(--out),filter .5s var(--ease)}
+.stay:hover .stay__img img{transform:scale(1.08);filter:brightness(.95)}
+.stay__img::after{content:"";position:absolute;inset:0;background:linear-gradient(transparent 34%,rgba(13,28,21,.94))}
+.stay__score{
+  position:absolute;right:12px;top:12px;z-index:3;background:var(--glow);color:var(--night);
+  border-radius:99px;padding:5px 12px;font-size:.74rem;font-weight:800;line-height:1.2;white-space:nowrap;
+}
+.stay__cap{
+  position:absolute;left:12px;top:12px;z-index:3;background:rgba(13,28,21,.8);color:var(--cream);
+  border:1px solid var(--edge-2);border-radius:99px;padding:5px 12px;font-size:.74rem;font-weight:700;
+  line-height:1.2;white-space:nowrap;
+}
+.stay__over{display:block;position:absolute;left:0;right:0;bottom:0;z-index:2;padding:18px}
+.stay__ttl{display:block;font-family:"Manrope",sans-serif;font-weight:800;font-size:var(--t-1);color:var(--cream);letter-spacing:-.018em;line-height:1.2;margin-bottom:4px}
+.stay__tag{display:block;font-size:.79rem;color:var(--glow);font-weight:700;line-height:1.35}
+.stay__body{display:flex;flex-direction:column;flex:1;padding:18px 8px 6px}
+.stay__txt{display:block;margin-bottom:16px;font-size:var(--t--1);color:var(--cream-dim);line-height:1.6;flex:1}
+.stay__go{
+  font-size:.82rem;font-weight:800;color:var(--cream);display:inline-flex;align-items:center;gap:7px;
+  transition:color .35s var(--ease),gap .35s var(--out);
+}
+.stay:hover .stay__go{color:var(--glow);gap:12px}
+.stay.picked .stay__go{color:var(--glow)}
+.stay.picked .stay__go::after{content:"✓"}
+
+/* ---------- amenity accordion ---------- */
+.acc{display:flex;gap:10px;height:min(560px,68vh)}
+.pan{
+  position:relative;flex:1;border-radius:var(--r-lg);overflow:hidden;cursor:pointer;border:0;padding:0;
+  background:var(--night-2);transition:flex .75s var(--out);
+}
+.pan.open{flex:3.4}
+.pan img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:brightness(.5) saturate(.9);transition:filter .7s var(--ease),transform 1.4s var(--out)}
+.pan.open img{filter:brightness(.78) saturate(1.02);transform:scale(1.04)}
+.pan::after{content:"";position:absolute;inset:0;background:linear-gradient(transparent 42%,rgba(13,28,21,.93))}
+.pan__lab{
+  position:absolute;left:0;right:0;bottom:0;z-index:2;padding:24px 22px;text-align:left;
+}
+.pan__lab h3{font-size:var(--t-1);margin-bottom:0;white-space:nowrap}
+.pan__num{
+  position:absolute;top:20px;left:20px;z-index:2;width:32px;height:32px;border-radius:50%;
+  display:grid;place-items:center;background:rgba(13,28,21,.7);border:1px solid var(--edge-2);
+  color:var(--glow);font-weight:800;font-size:.8rem;
+  transition:background .5s var(--ease),color .5s var(--ease);
+}
+.pan.open .pan__num{background:var(--glow);color:var(--night)}
+.pan__txt{
+  max-height:0;opacity:0;overflow:hidden;
+  transition:max-height .7s var(--out),opacity .5s var(--ease),margin-top .5s;
+}
+.pan.open .pan__txt{max-height:230px;opacity:1;margin-top:10px}
+.pan__txt p{margin:0;font-size:var(--t--1);color:var(--cream-dim);max-width:44ch;line-height:1.62;white-space:normal}
+.acchint{font-size:var(--t--1);color:var(--cream-faint);margin:18px 0 0;font-weight:600}
+
+/* ---------- play chips ---------- */
+.play{display:flex;flex-wrap:wrap;gap:11px}
+.chip{
+  border:1px solid var(--edge);border-radius:99px;padding:11px 20px;font-size:var(--t--1);font-weight:700;
+  color:var(--cream-dim);background:rgba(240,239,226,.04);cursor:default;
+  transition:background .4s var(--ease),color .4s var(--ease),transform .45s var(--pop),border-color .4s;
+}
+.chip:hover{background:var(--glow);color:var(--night);border-color:var(--glow);transform:translateY(-5px) rotate(-2deg)}
+.chip--red:hover{background:var(--toad);color:var(--cream);border-color:var(--toad)}
+
+/* ---------- residents ---------- */
+.res{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.rescard{
+  border:1px solid var(--edge);border-radius:var(--r-lg);padding:26px;
+  background:rgba(240,239,226,.03);
+  transition:background .5s var(--ease),transform .5s var(--out),border-color .45s;
+}
+.rescard:hover{background:rgba(242,193,78,.09);border-color:rgba(242,193,78,.4);transform:translateY(-6px)}
+.rescard .em{font-size:1.7rem;display:block;margin-bottom:12px;transition:transform .5s var(--pop)}
+.rescard:hover .em{transform:scale(1.2) rotate(-8deg)}
+.rescard h3{font-size:var(--t-1);margin-bottom:6px}
+.rescard p{margin:0;font-size:var(--t--1);color:var(--cream-dim);line-height:1.6}
+
+/* ---------- host note ---------- */
+.hostnote{
+  border-left:3px solid var(--glow);padding:clamp(24px,3vw,40px);
+  background:rgba(240,239,226,.04);border-radius:0 var(--r-lg) var(--r-lg) 0;
+  display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.85fr);gap:30px 50px;align-items:center;
+}
+.hostnote blockquote{margin:0;font-family:"Young Serif",serif;font-size:var(--t-2);line-height:1.3;color:var(--cream)}
+.hostnote p{margin:0 0 12px;font-size:var(--t--1);color:var(--cream-dim)}
+.hostnote p:last-child{margin-bottom:0}
+.hostnote cite{display:block;margin-top:18px;font-style:normal;font-size:var(--t--1);color:var(--glow);font-weight:700}
+
+/* ---------- reviews vertical scroll ---------- */
+.revs{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;height:520px;overflow:hidden;
+  -webkit-mask-image:linear-gradient(transparent,#000 10%,#000 90%,transparent);mask-image:linear-gradient(transparent,#000 10%,#000 90%,transparent)}
+.revcol{display:grid;gap:16px;align-content:start;animation:crawl 46s linear infinite}
+.revcol--b{animation-duration:58s;animation-direction:reverse}
+.revcol--c{animation-duration:52s}
+.revs:hover .revcol{animation-play-state:paused}
+@keyframes crawl{to{transform:translateY(-50%)}}
+.rev{
+  border:1px solid var(--edge);border-radius:var(--r-md);padding:22px;background:rgba(240,239,226,.035);
+  transition:background .45s var(--ease),border-color .45s,transform .45s var(--out);
+}
+.rev:hover{background:rgba(240,239,226,.08);border-color:var(--edge-2);transform:translateX(5px)}
+.rev q{quotes:none;display:block;font-size:var(--t--1);line-height:1.62;color:var(--cream-dim);margin-bottom:15px}
+.rev footer{display:flex;align-items:center;gap:11px}
+.rev .av{width:34px;height:34px;border-radius:50%;background:var(--fern);color:var(--cream);display:grid;place-items:center;font-family:"Young Serif",serif;font-size:.9rem;flex:0 0 auto}
+.rev cite{font-style:normal;font-weight:800;font-size:.84rem;color:var(--cream);display:block;line-height:1.25}
+.rev small{font-size:.75rem;color:var(--cream-faint);font-weight:600}
+
+/* ---------- booking ---------- */
+.book{display:grid;grid-template-columns:minmax(0,1.28fr) minmax(0,.88fr);gap:clamp(20px,3vw,38px);align-items:start}
+.pane{border:1px solid var(--edge);border-radius:var(--r-lg);padding:clamp(24px,3.2vw,42px);background:rgba(240,239,226,.035)}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px}
+.f label{display:block;font-weight:800;font-size:var(--t--1);color:var(--cream);margin-bottom:8px}
+.f input,.f textarea,.f select{
+  width:100%;padding:14px 16px;border-radius:var(--r-sm);background:rgba(13,28,21,.6);
+  border:2px solid var(--edge);color:var(--cream);
+  font-family:"Manrope",sans-serif;font-weight:500;font-size:1rem;
+  transition:border-color .35s var(--ease),background .35s var(--ease),box-shadow .35s var(--ease);
+}
+.f textarea{min-height:100px;resize:vertical;line-height:1.6}
+.f input::placeholder,.f textarea::placeholder{color:var(--cream-faint)}
+.f input[type=date]::-webkit-calendar-picker-indicator{filter:invert(.86);cursor:pointer;opacity:.7}
+.f input:hover,.f textarea:hover,.f select:hover{border-color:var(--edge-2)}
+.f input:focus,.f textarea:focus,.f select:focus{outline:0;border-color:var(--glow);background:rgba(13,28,21,.85);box-shadow:0 0 0 4px rgba(242,193,78,.14)}
+.f.bad input,.f.bad textarea{border-color:var(--toad);box-shadow:0 0 0 4px rgba(194,74,49,.16)}
+.f select{appearance:none;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%23F2C14E' stroke-width='3' stroke-linecap='round'><path d='M5 9l7 7 7-7'/></svg>");background-repeat:no-repeat;background-position:right 16px center;padding-right:44px}
+.err{display:block;min-height:1.05em;margin-top:5px;font-size:.78rem;font-weight:700;color:#EF8C72;opacity:0;transform:translateY(-4px);transition:opacity .3s,transform .3s}
+.f.bad .err{opacity:1;transform:none}
+
+fieldset{border:0;padding:0;margin:0 0 20px}
+legend{font-weight:800;font-size:var(--t--1);color:var(--cream);margin-bottom:10px;padding:0}
+.counts{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.stp{display:flex;align-items:center;gap:6px;background:rgba(13,28,21,.6);border:2px solid var(--edge);border-radius:var(--r-sm);padding:6px;width:max-content;transition:border-color .4s var(--ease)}
+.stp.over{border-color:var(--toad)}
+.stp button{width:40px;height:40px;border-radius:9px;border:0;cursor:pointer;background:transparent;color:var(--cream);font-size:1.3rem;line-height:1;transition:background .3s,color .3s,transform .3s var(--pop)}
+.stp button:hover:not(:disabled){background:var(--glow);color:var(--night);transform:scale(1.1)}
+.stp button:disabled{opacity:.28;cursor:not-allowed}
+.stp output{min-width:46px;text-align:center;font-family:"Young Serif",serif;font-size:1.2rem;color:var(--cream)}
+.hint{font-size:.79rem;font-weight:700;color:var(--cream-faint);margin:8px 0 0;transition:color .35s var(--ease)}
+.hint.warn{color:#EF8C72}
+
+/* summary */
+.sum{position:sticky;top:92px;border:1px solid rgba(242,193,78,.3);border-radius:var(--r-lg);padding:clamp(24px,3vw,36px);background:linear-gradient(165deg,rgba(242,193,78,.09),rgba(240,239,226,.03))}
+.sum h3{font-size:var(--t-1);margin-bottom:4px}
+.sum .sub{font-size:var(--t--1);color:var(--cream-faint);margin:0 0 20px;font-weight:600}
+.sum .chosen{display:flex;gap:13px;align-items:center;padding:13px 15px;border-radius:var(--r-sm);background:rgba(13,28,21,.5);border:1px solid var(--edge);margin-bottom:20px}
+.sum .chosen i{width:38px;height:38px;border-radius:11px;background:var(--fern);flex:0 0 auto;display:grid;place-items:center;font-style:normal;font-size:1.15rem}
+.sum .chosen b{display:block;font-size:.92rem;color:var(--cream);line-height:1.3}
+.sum .chosen small{font-size:.76rem;color:var(--cream-faint)}
+.sum dl{margin:0 0 18px;display:grid;gap:12px}
+.sum dl div{display:flex;justify-content:space-between;gap:14px;font-size:var(--t--1)}
+.sum dt{color:var(--cream-dim)}
+.sum dd{margin:0;color:var(--cream);font-weight:800}
+.sum .tot{display:flex;justify-content:space-between;align-items:baseline;gap:14px;border-top:1px solid var(--edge-2);padding-top:18px;margin-bottom:18px}
+.sum .tot span{font-size:var(--t--1);color:var(--cream-dim);font-weight:700}
+.sum .tot b{font-family:"Young Serif",serif;color:var(--glow);font-size:clamp(1.9rem,1.3rem + 1.7vw,2.6rem);transition:transform .35s var(--pop)}
+.sum .tot b.bump{transform:scale(1.09)}
+.sum .flag{display:none;margin:0 0 18px;padding:13px 16px;border-radius:var(--r-sm);background:rgba(194,74,49,.2);border:1px solid rgba(239,140,114,.45);font-size:.84rem;font-weight:700;color:#FFD8CD;line-height:1.5}
+.sum .flag.on{display:block;animation:pop .45s var(--pop) both}
+@keyframes pop{from{opacity:0;transform:scale(.96)}to{opacity:1;transform:none}}
+.sum .fine{font-size:.78rem;color:var(--cream-faint);margin:12px 0 0;line-height:1.55;font-weight:500}
+
+.sent{display:none;border:2px solid var(--glow);border-radius:var(--r-lg);padding:clamp(28px,4vw,48px);text-align:center;background:rgba(242,193,78,.07)}
+.sent.on{display:block;animation:pop .6s var(--pop) both}
+.sent .tick{width:66px;height:66px;border-radius:50%;background:var(--glow);display:grid;place-items:center;margin:0 auto 18px}
+.sent .tick svg{width:31px;height:31px;color:var(--night)}
+.sent h3{font-family:"Young Serif",serif;font-weight:400;font-size:var(--t-2);margin-bottom:12px}
+.sent p{margin:0 auto 8px;max-width:54ch;color:var(--cream-dim)}
+
+/* ---------- faq ---------- */
+.faq{max-width:900px;margin-inline:auto;display:grid;gap:11px}
+.qa{border:1px solid var(--edge);border-radius:var(--r-md);overflow:hidden;background:rgba(240,239,226,.03);transition:border-color .45s var(--ease),background .45s}
+.qa.on{border-color:rgba(242,193,78,.45);background:rgba(242,193,78,.06)}
+.qa > button{
+  width:100%;display:flex;justify-content:space-between;align-items:center;gap:20px;
+  padding:21px 25px;background:transparent;border:0;cursor:pointer;text-align:left;
+  font-family:"Manrope",sans-serif;font-weight:800;font-size:var(--t-1);color:var(--cream);
+  transition:color .35s var(--ease);
+}
+.qa > button:hover{color:var(--glow)}
+.qa i{flex:0 0 auto;width:28px;height:28px;border-radius:50%;background:rgba(240,239,226,.1);position:relative;transition:background .4s,transform .5s var(--pop)}
+.qa i::before,.qa i::after{content:"";position:absolute;left:50%;top:50%;background:var(--cream);border-radius:2px;transition:transform .45s var(--out),background .4s}
+.qa i::before{width:12px;height:2px;transform:translate(-50%,-50%)}
+.qa i::after{width:2px;height:12px;transform:translate(-50%,-50%)}
+.qa.on i{background:var(--glow);transform:rotate(180deg)}
+.qa.on i::before,.qa.on i::after{background:var(--night)}
+.qa.on i::after{transform:translate(-50%,-50%) scaleY(0)}
+.qa__in{height:0;overflow:hidden;transition:height .45s var(--out)}
+.qa__in p{margin:0 25px 22px;color:var(--cream-dim);font-size:var(--t--1);line-height:1.7}
+
+/* ---------- footer ---------- */
+.foot{position:relative;z-index:2;background:var(--moss);padding:clamp(56px,7vw,104px) 0 32px}
+.foot h2{font-size:var(--t-3);max-width:16ch;margin-bottom:26px}
+.foot__acts{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:clamp(44px,6vw,78px)}
+.foot__cols{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:32px;padding-bottom:32px;border-bottom:1px solid var(--edge)}
+.foot h4{color:var(--glow);font-size:var(--t--1);font-weight:800;margin-bottom:14px}
+.foot ul{list-style:none;margin:0;padding:0;display:grid;gap:9px;font-size:var(--t--1);color:var(--cream-dim)}
+.foot a{text-decoration:none;transition:color .35s var(--ease),transform .35s var(--out);display:inline-block}
+.foot a:hover{color:var(--glow);transform:translateX(4px)}
+.foot__base{display:flex;flex-wrap:wrap;gap:11px 26px;justify-content:space-between;padding-top:22px;font-size:.8rem;color:var(--cream-faint)}
+
+/* ---------- lightbox ---------- */
+.lb{position:fixed;inset:0;z-index:200;display:grid;place-items:center;padding:5vmin;background:rgba(6,14,10,.95);backdrop-filter:blur(8px);opacity:0;pointer-events:none;transition:opacity .4s var(--ease)}
+.lb.on{opacity:1;pointer-events:auto}
+.lb img{max-width:100%;max-height:86vh;border-radius:var(--r-md);transform:scale(.95);transition:transform .5s var(--out)}
+.lb.on img{transform:scale(1)}
+.lb .x{position:absolute;top:20px;right:20px;width:50px;height:50px;border-radius:50%;border:0;cursor:pointer;background:var(--glow);color:var(--night);font-size:1.5rem;line-height:1;transition:transform .4s var(--pop),background .4s}
+.lb .x:hover{transform:rotate(90deg) scale(1.08);background:var(--toad);color:var(--cream)}
+
+/* ---------- reveal ---------- */
+.up{opacity:0;transform:translateY(26px);transition:opacity .85s var(--out),transform .85s var(--out)}
+.up.in{opacity:1;transform:none}
+
+/* ---------- responsive ---------- */
+@media (max-width:1040px){
+  .menu{
+    position:fixed;top:74px;left:4.5vw;right:4.5vw;flex-direction:column;align-items:stretch;gap:0;
+    background:var(--night-2);border:1px solid var(--edge);border-radius:var(--r-lg);padding:10px;
+    opacity:0;transform:translateY(-14px);pointer-events:none;
+    transition:opacity .4s var(--ease),transform .45s var(--out);
+  }
+  .menu.on{opacity:1;transform:none;pointer-events:auto}
+  .menu a{font-size:1.04rem;padding:14px 14px;border-bottom:1px solid var(--edge)}
+  .menu a:last-child{border-bottom:0}
+  .menu a::after{display:none}
+  .burger{display:flex}
+  .nav .btn{display:none}
+  .head--row{grid-template-columns:1fr}
+  .stays{grid-template-columns:repeat(2,1fr)}
+  .stay:nth-child(even){margin-top:0}
+  .acc{flex-direction:column;height:auto}
+  .pan{flex:none;height:110px;transition:height .7s var(--out)}
+  .pan.open{flex:none;height:330px}
+  .pan__lab h3{white-space:normal}
+  .res{grid-template-columns:repeat(2,1fr)}
+  .hostnote{grid-template-columns:1fr}
+  .revs{grid-template-columns:repeat(2,1fr);height:460px}
+  .revcol--c{display:none}
+  .book{grid-template-columns:1fr}
+  .sum{position:relative;top:0}
+  .foot__cols{grid-template-columns:1fr 1fr}
+}
+@media (max-width:660px){
+  .two,.counts{grid-template-columns:1fr}
+  .stays{grid-template-columns:1fr}
+  .res{grid-template-columns:1fr}
+  .revs{grid-template-columns:1fr;height:420px}
+  .revcol--b{display:none}
+  .foot__cols{grid-template-columns:1fr}
+  .tabs{width:100%}
+  .tab{flex:1;padding:11px 8px;font-size:.8rem}
+}
+
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation-duration:.001ms !important;animation-iteration-count:1 !important;transition-duration:.001ms !important}
+  .up{opacity:1;transform:none}
+  .hero h1 .ln i{transform:none}
+  .motes{display:none}
+  .ribbon__row,.revcol{animation:none}
+}
+</style>
+</head>
+<body>
+
+<div class="prog" id="prog"></div>
+<div class="motes" id="motes" aria-hidden="true"></div>
+
+<header class="nav" id="nav">
+  <div class="shell">
+    <a class="logo" href="#top">
+      <svg viewBox="0 0 40 40" fill="none" aria-hidden="true">
+        <circle cx="20" cy="20" r="19" fill="#1C3A2B"/>
+        <path d="M20 8c6 0 10 4.5 10 8 0 1.5-1.2 2-3 2H13c-1.8 0-3-.5-3-2 0-3.5 4-8 10-8z" fill="#C24A31"/>
+        <circle cx="16" cy="13.5" r="1.7" fill="#F0EFE2"/><circle cx="24" cy="15" r="1.4" fill="#F0EFE2"/>
+        <path d="M17 18h6v9a3 3 0 0 1-6 0v-9z" fill="#F0EFE2"/>
+        <circle cx="31" cy="9" r="2" fill="#F2C14E"/>
+      </svg>
+      <b>Elfendahl Forest<small>Belfair, Washington</small></b>
+    </a>
+    <nav class="menu" id="menu" aria-label="Main">
+      <a href="#stays">Where to sleep</a>
+      <a href="#clearing">The clearing</a>
+      <a href="#play">Things to do</a>
+      <a href="#words">Reviews</a>
+      <a href="#book">Book</a>
+    </nav>
+    <a class="btn btn--sm" href="#book">Check dates</a>
+    <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false" aria-controls="menu"><i></i><i></i><i></i></button>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- ===== HERO ===== -->
+  <section class="hero">
+    <div class="shell">
+      <span class="crumb"><i></i> <b>99%</b> recommend · 153 reviews · Gary is a Star Host</span>
+      <h1>
+        <span class="ln"><i>Twenty acres</i></span>
+        <span class="ln"><i>of <em>moss and mischief.</em></i></span>
+      </h1>
+      <p>An off-grid homestead in the woods above Hood Canal, with gnomes hidden in the ferns, an outdoor kitchen that means you barely need to pack, and a composting toilet with a name.</p>
+      <div class="hero__acts">
+        <a class="btn" href="#stays">Choose where to sleep</a>
+        <a class="btn btn--line" href="#clearing">See the clearing</a>
+        <span class="hero__rate">from <b>$65</b> a night</span>
+      </div>
+    </div>
+
+    <div class="ribbon">
+      <div class="ribbon__row" id="ribbon"></div>
+    </div>
+  </section>
+
+  <!-- ===== STAYS ===== -->
+  <section class="band band--deep" id="stays">
+    <div class="shell">
+      <div class="head head--row up">
+        <div>
+          <span class="kick">Four ways to stay</span>
+          <h2>Pitch your own, or move into a bell tent</h2>
+        </div>
+        <p>One tent site and three ready-made stays, each with its own character. Pick one and it carries through to the form at the bottom.</p>
+      </div>
+
+      <div class="tabs up" role="tablist" aria-label="Filter stays">
+        <button class="tab on" role="tab" aria-selected="true" data-f="all">All four</button>
+        <button class="tab" role="tab" aria-selected="false" data-f="tent">Bring a tent</button>
+        <button class="tab" role="tab" aria-selected="false" data-f="lodging">Ready-made · 3</button>
+      </div>
+
+      <div class="stays up" id="stayGrid"></div>
+    </div>
+  </section>
+
+  <!-- ===== THE CLEARING ===== -->
+  <section class="band" id="clearing">
+    <div class="shell">
+      <div class="head head--row up">
+        <div>
+          <span class="kick">Shared by everyone</span>
+          <h2>The clearing does most of the work</h2>
+        </div>
+        <p>Guests keep saying they brought bins of gear and never unpacked half of it. This is why. Click a panel to open it.</p>
+      </div>
+
+      <div class="acc up" id="acc"></div>
+      <p class="acchint">Six panels — click any of them to read more.</p>
+    </div>
+  </section>
+
+  <!-- ===== PLAY ===== -->
+  <section class="band band--moss" id="play">
+    <div class="shell">
+      <div class="head head--row up">
+        <div>
+          <span class="kick">Nobody is bored here</span>
+          <h2>Everything that's out in the woods waiting</h2>
+        </div>
+        <p>Pulled from the listing and from what guests actually mention. The gnome hunt is unofficial but it's the thing children remember.</p>
+      </div>
+
+      <div class="play up">
+        <span class="chip">Net-Topia climbing net</span>
+        <span class="chip">Kids' zip line</span>
+        <span class="chip">Tire swing</span>
+        <span class="chip">The huge hammock</span>
+        <span class="chip">Tricycles &amp; bikes</span>
+        <span class="chip chip--red">Axe throwing</span>
+        <span class="chip chip--red">Knife throwing</span>
+        <span class="chip">Laser tag</span>
+        <span class="chip">Bocce ball</span>
+        <span class="chip">Corn hole</span>
+        <span class="chip">Foosball</span>
+        <span class="chip">Board games</span>
+        <span class="chip">Outdoor movie nights</span>
+        <span class="chip">Gnome and fairy hunt</span>
+        <span class="chip">Miles of state-land trails</span>
+        <span class="chip">Lakes, 20 minutes away</span>
+      </div>
+
+      <div class="head head--row up" style="margin:clamp(52px,7vw,86px) 0 clamp(28px,3.5vw,44px)">
+        <div>
+          <span class="kick">Also living here</span>
+          <h2>The welcoming committee</h2>
+        </div>
+        <p>It's a working homestead, so there are animals everywhere. Children tend to disappear into this and not come back until dinner.</p>
+      </div>
+
+      <div class="res">
+        <article class="rescard up"><span class="em">🐇</span><h3>The rabbits</h3><p>Named in review after review. You can feed them, and a lot of small visitors spend most of the trip doing exactly that.</p></article>
+        <article class="rescard up"><span class="em">🐓</span><h3>The chickens</h3><p>Happy to be greeted, firmly uninterested in being petted. Ask Gary about fresh eggs for breakfast.</p></article>
+        <article class="rescard up"><span class="em">🐕</span><h3>Bacchus &amp; friends</h3><p>The dogs are half the reason people come back. Yours is welcome too — pets are allowed at every site.</p></article>
+        <article class="rescard up"><span class="em">🌱</span><h3>The gardens</h3><p>Vegetables and herbs growing right there. Gary shares the harvest if you ask, which is a rare offer.</p></article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== HOST NOTE ===== -->
+  <section class="band">
+    <div class="shell">
+      <div class="head up" style="max-width:56ch">
+        <span class="kick">Straight from Gary</span>
+        <h2>What this place is, and isn't</h2>
+      </div>
+      <div class="hostnote up">
+        <blockquote>We're a whimsical, creative space filled with fairy and gnome gardens — but we're a working homestead, not a luxury resort.</blockquote>
+        <div>
+          <p>That's Gary's own framing, and it's worth taking at face value. You'll see tools, equipment, dogs, cats and half-finished projects, because the place is genuinely being built and run day to day.</p>
+          <p>Practically, that means: no campfires at your own site, though there's a communal fire pit. Composting toilets rather than plumbing. An outdoor shower rather than a bathroom. And mosquitoes in the warm months — bug spray is provided, and a reviewer noted it as the one downside.</p>
+          <p>The 99% recommendation rate across 153 reviews suggests almost everybody knows what they signed up for and loves it.</p>
+          <cite>Gary C. — hosting since April 2023</cite>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== REVIEWS ===== -->
+  <section class="band band--deep" id="words">
+    <div class="shell">
+      <div class="head head--row up">
+        <div>
+          <span class="kick">192 ratings, 153 written</span>
+          <h2>What people say when they get home</h2>
+        </div>
+        <p>Paraphrased from Hipcamp. Hover anywhere to stop the scroll and read.</p>
+      </div>
+      <div class="revs up" id="revs"></div>
+    </div>
+  </section>
+
+  <!-- ===== BOOKING ===== -->
+  <section class="band" id="book">
+    <div class="shell">
+      <div class="head head--row up">
+        <div>
+          <span class="kick">Request your dates</span>
+          <h2>Send it over to Gary</h2>
+        </div>
+        <p>Nothing is charged here. Gary is a Star Host and reviewers describe him as fast and friendly to deal with — expect a reply the same day.</p>
+      </div>
+
+      <div class="book">
+        <form class="pane" id="form" novalidate>
+          <div class="two">
+            <div class="f">
+              <label for="nm">Your name</label>
+              <input type="text" id="nm" placeholder="First and last" autocomplete="name">
+              <span class="err" id="e-nm"></span>
+            </div>
+            <div class="f">
+              <label for="em">Email</label>
+              <input type="email" id="em" placeholder="you@example.com" autocomplete="email">
+              <span class="err" id="e-em"></span>
+            </div>
+          </div>
+
+          <div class="two">
+            <div class="f">
+              <label for="din">Arriving</label>
+              <input type="date" id="din">
+              <span class="err" id="e-din"></span>
+            </div>
+            <div class="f">
+              <label for="dout">Leaving</label>
+              <input type="date" id="dout">
+              <span class="err" id="e-dout"></span>
+            </div>
+          </div>
+
+          <div class="f" style="margin-bottom:18px">
+            <label for="pick">Which stay?</label>
+            <select id="pick"></select>
+          </div>
+
+          <fieldset>
+            <legend>Who's coming?</legend>
+            <div class="counts">
+              <div>
+                <p class="hint" style="margin:0 0 8px">Guests</p>
+                <div class="stp" id="gWrap">
+                  <button type="button" id="gm" aria-label="One fewer guest">−</button>
+                  <output id="gv" aria-live="polite">2</output>
+                  <button type="button" id="gp" aria-label="One more guest">+</button>
+                </div>
+                <p class="hint" id="capLine">The Shire sleeps 7.</p>
+              </div>
+              <div>
+                <p class="hint" style="margin:0 0 8px">Dogs — welcome, no fee</p>
+                <div class="stp">
+                  <button type="button" id="pm" aria-label="One fewer dog">−</button>
+                  <output id="pv" aria-live="polite">0</output>
+                  <button type="button" id="pp" aria-label="One more dog">+</button>
+                </div>
+                <p class="hint">There are already dogs, cats, chickens and rabbits here.</p>
+              </div>
+            </div>
+          </fieldset>
+
+          <div class="f" style="margin-bottom:22px">
+            <label for="note">Anything for Gary?</label>
+            <textarea id="note" placeholder="Ages of any kids, a late arrival, whether you'd like eggs from the coop — anything at all."></textarea>
+          </div>
+
+          <button class="btn btn--full" type="submit">Send this request</button>
+        </form>
+
+        <aside class="pane sum">
+          <h3>Your stay</h3>
+          <p class="sub" id="sub">Pick your dates to see a total</p>
+
+          <div class="chosen">
+            <i id="chIcon">⛺</i>
+            <div><b id="chName">The Shire</b><small id="chTag">Tent site · sleeps 7</small></div>
+          </div>
+
+          <div class="flag" id="flag"></div>
+
+          <dl>
+            <div><dt id="lRate">from $65 × 0 nights</dt><dd id="vRate">$0</dd></div>
+            <div><dt>Booking fee</dt><dd>$10</dd></div>
+          </dl>
+
+          <div class="tot"><span>Estimated total</span><b id="total">$10</b></div>
+          <p class="fine">Based on the listing's lowest nightly rate. The Lotus, Wanderbus and Baggins Inn cost more than the tent site — Gary confirms the exact figure with your dates.</p>
+        </aside>
+      </div>
+
+      <div class="sent" id="sent" role="status">
+        <div class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l5.5 5.5L20 7"/></svg></div>
+        <h3>Off into the forest</h3>
+        <p id="sentLine"></p>
+        <p>Gary will confirm the site is free and send directions. If nothing arrives within a day, check your spam folder and try again.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FAQ ===== -->
+  <section class="band band--moss">
+    <div class="shell">
+      <div class="head up" style="text-align:center;max-width:54ch;margin-inline:auto">
+        <span class="kick" style="justify-content:center">Before you set off</span>
+        <h2>Questions people ask</h2>
+      </div>
+
+      <div class="faq" id="faq">
+        <div class="qa">
+          <button type="button" aria-expanded="false">What exactly is Louie the 1st? <i aria-hidden="true"></i></button>
+          <div class="qa__in"><p>The main composting toilet, and yes, it has a name. It works like a porta potty but uses sawdust instead of blue chemicals, which means no smell and hundreds of gallons of water saved every week. Guests consistently describe it as clean and comfortable, which is not a thing people usually say about camp toilets. The Lotus, Wanderbus and Baggins Inn each have their own private one as well.</p></div>
+        </div>
+        <div class="qa">
+          <button type="button" aria-expanded="false">Can we have a campfire? <i aria-hidden="true"></i></button>
+          <div class="qa__in"><p>Not at your own site — every listing here is marked no campfires. There is a communal fire pit in the shared clearing, and guests have mentioned a propane fire pit too. In summer Gary runs movie nights at the outdoor theatre, which tends to be where everyone ends up anyway.</p></div>
+        </div>
+        <div class="qa">
+          <button type="button" aria-expanded="false">How much do we actually need to bring? <i aria-hidden="true"></i></button>
+          <div class="qa__in"><p>Less than you think. The outdoor kitchen has a propane stove and oven, dishes, utensils, pots, pans, spices and cooking oils. One reviewer brought all their usual camp gear and used about half of it; another said they only needed to bring food. If you're in the Lotus or the Wanderbus you also get a private kitchenette on top of that. Bring food, bedding if you're in the tent site, and a torch.</p></div>
+        </div>
+        <div class="qa">
+          <button type="button" aria-expanded="false">Is the outdoor shower actually warm? <i aria-hidden="true"></i></button>
+          <div class="qa__in"><p>It's on-demand hot water and you set the temperature yourself. It comes up in review after review as an unexpected highlight, which is the strongest evidence you'll get. It's private, and it's the same shower whichever site you book.</p></div>
+        </div>
+        <div class="qa">
+          <button type="button" aria-expanded="false">Is it good for young children? <i aria-hidden="true"></i></button>
+          <div class="qa__in"><p>It's arguably the whole point. Hipcamp flags the listing as family-friendly, and reviews from parents are relentlessly positive — the climbing net, the zip line, the tricycles, the rabbits, and gnome statues hidden all over the property that light up after dark. One parent described it as pure play and magic for anyone under ten. Supervision is still on you: there's axe throwing here too.</p></div>
+        </div>
+        <div class="qa">
+          <button type="button" aria-expanded="false">What's nearby? <i aria-hidden="true"></i></button>
+          <div class="qa__in"><p>The property backs onto hundreds of acres of state land with trails and forest roads running straight off it. Belfair is about twenty minutes, and so are the freshwater lakes, which reviewers say are surprisingly warm for swimming. Hood Canal and several state parks are within easy reach for fishing and kayaking.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="shell">
+    <h2>Come and get pleasantly lost.</h2>
+    <div class="foot__acts">
+      <a class="btn" href="#book">Request your dates</a>
+      <a class="btn btn--line" href="#stays">Compare the stays</a>
+    </div>
+
+    <div class="foot__cols">
+      <div>
+        <h4>Elfendahl Forest</h4>
+        <ul>
+          <li>Belfair, Mason County, Washington</li>
+          <li>20 acres, off grid, fourth year</li>
+          <li>Surrounded by state land</li>
+          <li>Exact address after booking</li>
+        </ul>
+      </div>
+      <div>
+        <h4>On this page</h4>
+        <ul>
+          <li><a href="#stays">Where to sleep</a></li>
+          <li><a href="#clearing">The clearing</a></li>
+          <li><a href="#play">Things to do</a></li>
+          <li><a href="#words">Reviews</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Good to know</h4>
+        <ul>
+          <li>No campfires at your site</li>
+          <li>Composting toilets throughout</li>
+          <li>Outdoor shower, hot water</li>
+          <li>Dogs welcome everywhere</li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot__base">
+      <span>Hosted by Gary C. · Star Host · Staff verified · 99% recommend</span>
+      <span>Leave the gnomes where you found them.</span>
+    </div>
+  </div>
+</footer>
+
+<div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Photo">
+  <button class="x" id="lbx" aria-label="Close photo">×</button>
+  <img id="lbimg" src="" alt="">
+</div>
+
+<script>
+(function(){
+  "use strict";
+  var slow = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var A = "https://hipcamp-res.cloudinary.com/images/f_auto,c_limit,w_3840,q_auto/";
+  var B = "https://hipcamp-res.cloudinary.com/f_auto,c_limit,w_3840,q_auto/";
+
+  var PHOTOS = [
+    [A+"v1749750136/land-photos/oucbrtzpoqmcrvdjuubg/elfendahl-forest-puget-sound.jpg","Elfendahl Forest"],
+    [A+"v1674104030/campground-photos/dhsn3fejmsfxbd3ctkhp/elfendahl-forest-the-wanderbus-at-elfendahl-forest-puget-sound.jpg","The Wanderbus in the forest"],
+    [A+"v1674105176/campground-photos/kjf1vq1ezsm3s26xaycr/elfendahl-forest-the-wanderbus-at-elfendahl-forest-puget-sound.jpg","The community kitchen"],
+    [A+"v1674706062/campground-photos/fogyehw5utsdroohwtrz/elfendahl-forest-the-wanderbus-at-elfendahl-forest-puget-sound.jpg","The outdoor shower and Louie the 1st"],
+    [A+"v1676308710/campground-photos/ubwnul4iaaszwv4n4ku5/elfendahl-forest-the-wanderbus-at-elfendahl-forest-puget-sound.jpg","Around Elfendahl Forest"],
+    [A+"v1674109103/campground-photos/rsgbm1uvw2oojq4lzt5i/elfendahl-forest-the-wanderbus-at-elfendahl-forest-puget-sound.jpg","A corner of the property"],
+    [A+"v1687439279/dev-campground-photos/te5igqu8tlif8gpxl1sc/elfendahl-forest-the-shire-at-elfendahl-forest-puget-sound.jpg","The Shire tent site"],
+    [A+"v1718866148/campground-photos/mkhvgx2z6kabjss3mevo/elfendahl-forest-the-shire-at-elfendahl-forest-puget-sound.jpg","The Shire at Elfendahl Forest"],
+    [A+"v1687439124/dev-campground-photos/illbbud3tuahffotoz8s/elfendahl-forest-the-shire-at-elfendahl-forest-puget-sound.jpg","Woodland at the Shire"],
+    [B+"v1777907744/dev-campground-photos/ubhgs1ft80qtyjv0s7es.jpg","The Lotus bell tent"],
+    [A+"v1718903687/campground-photos/ngnqwmc2fy44mozig8q1/elfendahl-forest-the-lotus-tent-in-elfendahl-forest-puget-sound.jpg","Inside the Lotus tent"],
+    [B+"v1777907748/dev-campground-photos/tj6fj048zn8rpmmuvpld.jpg","The Lotus tent setting"],
+    [B+"v1785597675/campground-photos/h7xqtunk3le48trdkeua.jpg","The Wanderbus"],
+    [A+"v1686710067/campground-photos/zqtviljczxoymh3hbskl/elfendahl-forest-the-wanderbus-at-elfendahl-forest-puget-sound.jpg","Inside the Wanderbus"],
+    [A+"v1680282845/campground-photos/jhmdgj99tdtftm7oepkv/elfendahl-forest-the-wanderbus-at-elfendahl-forest-puget-sound.jpg","The Wanderbus grotto"],
+    [B+"v1752774937/dev-campground-photos/gspve6nbxyotlqvvtmvk.jpg","Baggins Inn"],
+    [B+"v1752774943/dev-campground-photos/juxtdunfhwt78wuxd0ss.jpg","Inside Baggins Inn"],
+    [B+"v1752631134/dev-campground-photos/ne7mfikkcxj09r901wq7.jpg","Baggins Inn in the trees"]
+  ];
+
+  var STAYS = [
+    {id:"shire", icon:"⛺", name:"The Shire", tag:"Tent site · sleeps 7", type:"tent", score:95, n:52, cap:7,
+     img:PHOTOS[6][0],
+     text:"Bring your own tent. Tidy, level and a short walk from the shared clearing, which reviewers say is the perfect distance — close enough for the kitchen, far enough for privacy."},
+    {id:"lotus", icon:"🏕️", name:"The Lotus", tag:"Bell tent · sleeps 7", type:"lodging", score:100, n:58, cap:7,
+     img:PHOTOS[9][0],
+     text:"A spacious bell tent with a bed already made up, its own composting toilet, a private kitchenette stocked with spices and oils, drinking water and hammocks."},
+    {id:"bus", icon:"🚌", name:"The Wanderbus", tag:"Converted bus · sleeps 3", type:"lodging", score:100, n:56, cap:3,
+     img:PHOTOS[12][0],
+     text:"A bus turned into a home on wheels, tucked in its own private grotto. Comes stocked with a stove, cooler, dishes, board games, blankets and chairs. The hot tub is nearby."},
+    {id:"baggins", icon:"🍄", name:"Baggins Inn", tag:"Bell tent · sleeps 5", type:"lodging", score:100, n:26, cap:5,
+     img:PHOTOS[15][0],
+     text:"The newest of the bell tents, clean and roomy, with its own toilet. Big enough for two adults and three small children without anyone pitching a thing."}
+  ];
+
+  var PANELS = [
+    {t:"The outdoor kitchen", img:PHOTOS[2][0], d:"A propane stove and oven under cover, with dishes, utensils, pots, pans, spices and cooking oils already there. It is the single most praised thing on the property. Bring food and very little else."},
+    {t:"The outdoor shower", img:PHOTOS[3][0], d:"Private, open to the trees, with on-demand hot water you set yourself. Guests have been raving about it since it was finished, and it turns up in more reviews than almost anything else."},
+    {t:"Louie the 1st", img:PHOTOS[5][0], d:"The main composting toilet. Sawdust rather than blue chemicals, no smell, and hundreds of gallons of water saved every week. The three lodging sites have their own private ones too."},
+    {t:"Gardens and eggs", img:PHOTOS[4][0], d:"Vegetable and herb beds that Gary will happily share from if you ask. Guests have picked up fresh eggs from the coop for breakfast and reported back enthusiastically."},
+    {t:"Fire pit and theatre", img:PHOTOS[1][0], d:"No campfires at your own site, but there's a communal fire pit for the evenings, and through the summer Gary runs movie nights at the outdoor theatre in the clearing."},
+    {t:"The play area", img:PHOTOS[7][0], d:"Net-Topia, the big climbing net, plus a kids' zip line, tricycles, a tire swing and an enormous hammock. Parents describe watching their children disappear into it for entire afternoons."}
+  ];
+
+  var REVIEWS = [
+    {q:"If you have children under ten this place is pure play and magic. Fairies and gnomes around every corner.", n:"Dan H.", m:"The Shire · with kids"},
+    {q:"We felt like we were living in a fairy tale, nestled in our own private grotto. Stargazed through the Perseids on the second night.", n:"Megan E.", m:"The Wanderbus · August"},
+    {q:"I brought bins of toys and supplies and never unloaded them, because the camp is so well supplied.", n:"Bethany S.", m:"The Lotus · with kids"},
+    {q:"Between the private kitchen and the communal one, we literally only needed to bring food.", n:"Amanda H.", m:"The Lotus · August"},
+    {q:"Setting up and taking down a tent is my least favourite part of camping. Here I spent that time playing with the kids instead.", n:"Alissa F.", m:"Baggins Inn · with pets"},
+    {q:"Hidden treasures all over the property, games for every age, bunnies to pet and chickens that would rather you didn't.", n:"M'lissa B.", m:"The Shire · July"},
+    {q:"At night it became a whole new adventure with all the things that light up.", n:"Jannet M.", m:"The Shire · group trip"},
+    {q:"The only downside was the mosquitoes, and the owners had already thought of that and provided bug spray.", n:"Vi L.", m:"The Lotus · with kids"},
+    {q:"My favourite thing was the huge hammock. We just lay in it and looked up into the trees.", n:"Lin J.", m:"The Shire · with kids"},
+    {q:"Our kids asked to go back the moment we got in the car.", n:"Shawna T.", m:"Baggins Inn · with kids"},
+    {q:"It really feels like you have stepped into a fairytale grove, and the good vibes follow suit.", n:"Dylan F.", m:"Baggins Inn · August"},
+    {q:"Well stocked: cooler, dishes, camp stove, spices, board games, blankets, pillows, chairs and drinking water.", n:"Marta H.", m:"The Wanderbus · August"}
+  ];
+
+  /* ---------- fairy motes ---------- */
+  if(!slow){
+    var motes=document.getElementById("motes"), frag=document.createDocumentFragment();
+    for(var i=0;i<22;i++){
+      var d=document.createElement("span");
+      d.className="mote";
+      d.style.left=(Math.random()*100)+"%";
+      d.style.top=(70+Math.random()*35)+"%";
+      d.style.animationDuration=(11+Math.random()*15)+"s";
+      d.style.animationDelay=(-Math.random()*22)+"s";
+      d.style.transform="scale("+(0.5+Math.random()).toFixed(2)+")";
+      frag.appendChild(d);
+    }
+    motes.appendChild(frag);
+  }
+
+  /* ---------- hero headline ---------- */
+  document.querySelectorAll(".hero h1 .ln i").forEach(function(el,i){
+    if(slow){ el.style.transform="none"; return; }
+    el.style.transition="transform 1.05s cubic-bezier(.16,1,.3,1) "+(.12+i*.13)+"s";
+    requestAnimationFrame(function(){ requestAnimationFrame(function(){ el.style.transform="translateY(0)"; }); });
+  });
+
+  /* ---------- photo ribbon ---------- */
+  var ribbon=document.getElementById("ribbon");
+  function ribHTML(){
+    return PHOTOS.map(function(p){
+      return '<button class="rib" type="button"><img src="'+p[0]+'" alt="'+p[1]+'" loading="lazy"></button>';
+    }).join("");
+  }
+  ribbon.innerHTML = ribHTML() + ribHTML();
+
+  /* ---------- scroll ---------- */
+  var prog=document.getElementById("prog"), nav=document.getElementById("nav"), tick=false;
+  function onScroll(){
+    var y=window.scrollY, max=document.documentElement.scrollHeight-window.innerHeight;
+    prog.style.transform="scaleX("+(max>0?y/max:0)+")";
+    nav.classList.toggle("stuck", y>26);
+    tick=false;
+  }
+  window.addEventListener("scroll",function(){ if(!tick){ requestAnimationFrame(onScroll); tick=true; } },{passive:true});
+  onScroll();
+
+  var burger=document.getElementById("burger"), menu=document.getElementById("menu");
+  burger.addEventListener("click",function(){
+    var on=menu.classList.toggle("on");
+    burger.classList.toggle("on",on);
+    burger.setAttribute("aria-expanded",on?"true":"false");
+  });
+  menu.addEventListener("click",function(e){
+    if(e.target.tagName==="A"){ menu.classList.remove("on"); burger.classList.remove("on"); burger.setAttribute("aria-expanded","false"); }
+  });
+
+  /* ---------- reveal ---------- */
+  var io=new IntersectionObserver(function(rows){
+    rows.forEach(function(r){ if(r.isIntersecting){ r.target.classList.add("in"); io.unobserve(r.target); } });
+  },{threshold:.08, rootMargin:"0px 0px -5% 0px"});
+  document.querySelectorAll(".up").forEach(function(el,i){
+    el.style.transitionDelay=((i%3)*0.08)+"s";
+    io.observe(el);
+  });
+
+  /* ---------- amenity accordion ---------- */
+  var acc=document.getElementById("acc");
+  PANELS.forEach(function(p,i){
+    var b=document.createElement("button");
+    b.type="button"; b.className="pan"+(i===0?" open":"");
+    b.setAttribute("aria-expanded", i===0?"true":"false");
+    b.innerHTML='<img src="'+p.img+'" alt="'+p.t+' at Elfendahl Forest" loading="lazy">'+
+      '<span class="pan__num">'+(i+1)+'</span>'+
+      '<span class="pan__lab"><h3>'+p.t+'</h3><span class="pan__txt"><p>'+p.d+'</p></span></span>';
+    b.addEventListener("click",function(){
+      acc.querySelectorAll(".pan").forEach(function(o){ o.classList.remove("open"); o.setAttribute("aria-expanded","false"); });
+      b.classList.add("open"); b.setAttribute("aria-expanded","true");
+    });
+    acc.appendChild(b);
+  });
+
+  /* ---------- stays ---------- */
+  var grid=document.getElementById("stayGrid"), sel=document.getElementById("pick"), chosen="shire";
+
+  STAYS.forEach(function(s){
+    var b=document.createElement("button");
+    b.type="button"; b.className="stay"; b.dataset.id=s.id; b.dataset.type=s.type;
+    b.innerHTML =
+      '<span class="stay__img"><img src="'+s.img+'" alt="'+s.name+' at Elfendahl Forest" loading="lazy">'+
+        '<span class="stay__cap">Sleeps '+s.cap+'</span><span class="stay__score">'+s.score+'%</span>'+
+        '<span class="stay__over"><span class="stay__ttl">'+s.name+'</span>'+
+        '<span class="stay__tag">'+s.tag+'</span></span></span>'+
+      '<span class="stay__body"><span class="stay__txt">'+s.text+'</span>'+
+      '<span class="stay__go">Choose this · '+s.n+' reviews</span></span>';
+    b.addEventListener("click",function(){ choose(s.id,true); });
+    grid.appendChild(b);
+
+    var o=document.createElement("option");
+    o.value=s.id; o.textContent=s.name+" — "+s.tag;
+    sel.appendChild(o);
+  });
+
+  function stayById(id){ return STAYS.filter(function(x){ return x.id===id; })[0]; }
+
+  function choose(id, scroll){
+    chosen=id;
+    var s=stayById(id);
+    grid.querySelectorAll(".stay").forEach(function(c){ c.classList.toggle("picked", c.dataset.id===id); });
+    sel.value=id;
+    document.getElementById("chIcon").textContent=s.icon;
+    document.getElementById("chName").textContent=s.name;
+    document.getElementById("chTag").textContent=s.tag;
+    setGuests(guests);
+    if(scroll) document.getElementById("book").scrollIntoView({behavior: slow?"auto":"smooth", block:"start"});
+  }
+  sel.addEventListener("change",function(){ choose(sel.value,false); });
+
+  document.querySelectorAll(".tab").forEach(function(t){
+    t.addEventListener("click",function(){
+      document.querySelectorAll(".tab").forEach(function(o){ o.classList.remove("on"); o.setAttribute("aria-selected","false"); });
+      t.classList.add("on"); t.setAttribute("aria-selected","true");
+      var f=t.dataset.f;
+      grid.querySelectorAll(".stay").forEach(function(c){ c.classList.toggle("hide", f!=="all" && c.dataset.type!==f); });
+    });
+  });
+
+  /* ---------- reviews columns ---------- */
+  function revHTML(r){
+    return '<article class="rev"><q>'+r.q+'</q><footer><span class="av">'+r.n.charAt(0)+
+      '</span><span><cite>'+r.n+'</cite><small>'+r.m+'</small></span></footer></article>';
+  }
+  var revs=document.getElementById("revs"), per=Math.ceil(REVIEWS.length/3), cls=["revcol","revcol revcol--b","revcol revcol--c"];
+  for(var c=0;c<3;c++){
+    var slice=REVIEWS.slice(c*per,(c+1)*per).map(revHTML).join("");
+    var col=document.createElement("div");
+    col.className=cls[c];
+    col.innerHTML=slice+slice;
+    revs.appendChild(col);
+  }
+
+  /* ---------- FAQ ---------- */
+  document.querySelectorAll("#faq .qa > button").forEach(function(btn){
+    var body=btn.nextElementSibling, box=btn.parentElement;
+    btn.addEventListener("click",function(){
+      var open=box.classList.contains("on");
+      document.querySelectorAll("#faq .qa").forEach(function(o){
+        if(o!==box && o.classList.contains("on")){
+          o.classList.remove("on");
+          o.querySelector("button").setAttribute("aria-expanded","false");
+          o.querySelector(".qa__in").style.height="0px";
+        }
+      });
+      box.classList.toggle("on",!open);
+      btn.setAttribute("aria-expanded", open?"false":"true");
+      body.style.height = open ? "0px" : body.scrollHeight+"px";
+    });
+  });
+
+  /* ---------- booking ---------- */
+  var RATE=65, FEE=10;
+  var form=document.getElementById("form"),
+      din=document.getElementById("din"), dout=document.getElementById("dout"),
+      totalEl=document.getElementById("total"), flag=document.getElementById("flag"),
+      gv=document.getElementById("gv"), gm=document.getElementById("gm"), gp=document.getElementById("gp"),
+      gWrap=document.getElementById("gWrap"), capLine=document.getElementById("capLine"),
+      pv=document.getElementById("pv"), pm=document.getElementById("pm"), pp=document.getElementById("pp"),
+      guests=2, pets=0;
+
+  var today=new Date().toISOString().split("T")[0];
+  din.min=today; dout.min=today;
+
+  function nights(){
+    if(!din.value||!dout.value) return 0;
+    var n=Math.round((new Date(dout.value)-new Date(din.value))/86400000);
+    return n>0?n:0;
+  }
+  function cash(n){ return "$"+n.toLocaleString("en-US"); }
+
+  function refresh(){
+    var n=nights(), base=RATE*n, s=stayById(chosen), over=guests>s.cap;
+
+    document.getElementById("sub").textContent =
+      n===0 ? "Pick your dates to see a total"
+            : n+(n===1?" night":" nights")+" · "+guests+(guests===1?" person":" people")+(pets?" · "+pets+(pets===1?" dog":" dogs"):"");
+    document.getElementById("lRate").textContent="from $65 × "+n+(n===1?" night":" nights");
+    document.getElementById("vRate").textContent=cash(base);
+
+    totalEl.textContent=cash(base+FEE);
+    totalEl.classList.add("bump");
+    setTimeout(function(){ totalEl.classList.remove("bump"); },300);
+
+    /* the real constraint here: each stay has its own capacity */
+    gWrap.classList.toggle("over", over);
+    capLine.classList.toggle("warn", over);
+    if(over){
+      capLine.textContent = s.name+" sleeps "+s.cap+" — that's "+(guests-s.cap)+" too many.";
+      flag.textContent = guests+" guests won't fit in "+s.name+", which sleeps "+s.cap+". Try another stay, or ask Gary about booking two — several groups have taken the whole forest.";
+      flag.classList.add("on");
+    } else {
+      capLine.textContent = s.name+" sleeps "+s.cap+(guests===s.cap?" — you're right at it.":".");
+      flag.classList.remove("on");
+    }
+  }
+
+  function setGuests(n){
+    guests=Math.min(9,Math.max(1,n));
+    gv.textContent=guests;
+    gm.disabled=guests===1;
+    gp.disabled=guests===9;
+    refresh();
+  }
+  function setPets(n){ pets=Math.min(4,Math.max(0,n)); pv.textContent=pets; pm.disabled=pets===0; pp.disabled=pets===4; refresh(); }
+  gm.addEventListener("click",function(){ setGuests(guests-1); });
+  gp.addEventListener("click",function(){ setGuests(guests+1); });
+  pm.addEventListener("click",function(){ setPets(pets-1); });
+  pp.addEventListener("click",function(){ setPets(pets+1); });
+
+  din.addEventListener("change",function(){
+    dout.min=din.value||today;
+    if(dout.value && dout.value<=din.value) dout.value="";
+    refresh();
+  });
+  dout.addEventListener("change",refresh);
+
+  choose("shire", false);
+  setPets(0);
+
+  function bad(id,msg){
+    document.getElementById(id).closest(".f").classList.add("bad");
+    document.getElementById("e-"+id).textContent=msg;
+  }
+  ["nm","em","din","dout"].forEach(function(id){
+    document.getElementById(id).addEventListener("input",function(){ this.closest(".f").classList.remove("bad"); });
+  });
+
+  form.addEventListener("submit",function(e){
+    e.preventDefault();
+    form.querySelectorAll(".f").forEach(function(f){ f.classList.remove("bad"); });
+    var ok=true, first=null;
+
+    var nm=document.getElementById("nm");
+    if(!nm.value.trim()){ bad("nm","We need a name for the request."); ok=false; first=first||nm; }
+    var em=document.getElementById("em");
+    if(!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(em.value.trim())){ bad("em","Check this — Gary's reply goes here."); ok=false; first=first||em; }
+    if(!din.value){ bad("din","Pick an arrival date."); ok=false; first=first||din; }
+    if(!dout.value){ bad("dout","Pick a departure date."); ok=false; first=first||dout; }
+    else if(nights()<1){ bad("dout","Departure has to be after arrival."); ok=false; first=first||dout; }
+
+    if(!ok){ first.focus(); return; }
+
+    var s=stayById(chosen), n=nights();
+    document.getElementById("sentLine").textContent =
+      nm.value.trim()+" — "+s.name+", "+n+(n===1?" night":" nights")+" from "+din.value+", "+
+      guests+(guests===1?" person":" people")+(pets?" and "+pets+(pets===1?" dog":" dogs"):"")+".";
+
+    form.style.display="none";
+    document.querySelector(".sum").style.display="none";
+    var sent=document.getElementById("sent");
+    sent.classList.add("on");
+    sent.scrollIntoView({behavior: slow?"auto":"smooth", block:"center"});
+  });
+
+  /* ---------- lightbox ---------- */
+  var lb=document.getElementById("lb"), lbimg=document.getElementById("lbimg"), lbx=document.getElementById("lbx"), back=null;
+  document.addEventListener("click",function(e){
+    var r=e.target.closest(".rib");
+    if(!r) return;
+    var im=r.querySelector("img");
+    lbimg.src=im.src; lbimg.alt=im.alt; back=r;
+    lb.classList.add("on"); document.body.style.overflow="hidden"; lbx.focus();
+  });
+  function shut(){ lb.classList.remove("on"); document.body.style.overflow=""; if(back) back.focus(); }
+  lbx.addEventListener("click",shut);
+  lb.addEventListener("click",function(e){ if(e.target===lb) shut(); });
+  document.addEventListener("keydown",function(e){ if(e.key==="Escape" && lb.classList.contains("on")) shut(); });
+})();
+</script>
+</body>
+</html>
